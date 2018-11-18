@@ -1,9 +1,14 @@
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CarsTest {
     private final Volvo240 c1 = new Volvo240();
     private final Saab95 c2 = new Saab95();
+    private final Scania c3 = new Scania();
+    private final Freightliner c4 = new Freightliner();
+    private final Cargoship c5 = new Cargoship();
 
     @org.junit.jupiter.api.Test
     void startEngine() {
@@ -96,5 +101,60 @@ class CarsTest {
         c2.setTurboOn();
         c2.setTurboOff();
         assertTrue(c2.speedFactor() == 1.25);
+    }
+
+    @Test
+    void tiltUp() {
+        c3.tiltUp();
+        assertEquals(c3.getTiltDeg(),0);
+        c3.tiltDown();
+        c3.tiltDown();
+        c3.tiltUp();
+        assertEquals(c3.getTiltDeg(),1);
+
+        assertEquals(c4.getTiltDeg(),0);
+        c4.tiltUp();
+        assertEquals(c4.getTiltDeg(),0);
+    }
+
+    @Test
+    void tiltDown() {
+        assertEquals(c3.getTiltDeg(), 0);
+        c3.tiltDown();
+        assertEquals(c3.getTiltDeg(),1);
+        c3.startEngine();
+        assertEquals(c3.getTiltDeg(), 0);
+
+        assertEquals(c4.getTiltDeg(),0);
+        c4.tiltDown();
+        assertEquals( c4.getTiltDeg(), 70);
+        c4.tiltDown();
+        assertEquals(c4.getTiltDeg(), 70);
+
+    }
+
+    @Test
+    void loadCar() {
+        assertEquals(c4.getAmountLoaded(),0);
+        c4.loadCar(c1);
+        assertEquals(c4.getAmountLoaded(),0);
+        c4.tiltDown();
+        c4.loadCar(c4);
+        c4.loadCar(c1); //cant load itself or the same car multiple times
+        c4.loadCar(c1);
+        assertEquals(c4.getAmountLoaded(),1); // test for what happens if list is full needed
+    }
+
+    @Test
+    void unloadCar() {
+        assertEquals(c4.getAmountLoaded(),0);
+        c4.tiltDown();
+        c4.unloadCar();
+        assertEquals(c4.getAmountLoaded(),0);
+        c4.loadCar(c1);
+        c4.loadCar(c2);
+        assertEquals(c4.getAmountLoaded(),2);
+        c4.unloadCar();
+        assertEquals(c4.getAmountLoaded(),1);
     }
 }

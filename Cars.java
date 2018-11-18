@@ -164,9 +164,7 @@ public abstract class Cars implements Movable {
      *
      * @param currentSpeed New current speed
      */
-    void setCurrentSpeed(double currentSpeed) {
-        this.currentSpeed = currentSpeed;
-    }
+    void setCurrentSpeed(double currentSpeed) { this.currentSpeed = currentSpeed; }
 
     /**
      * @return posX
