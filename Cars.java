@@ -144,6 +144,10 @@ public abstract class Cars implements Movable {
             throw new InvalidParameterException();
         }
     }
+    void setSamePos(Cars c){
+        c.setPosX(this.posX);
+        c.setPosY(this.posY);
+    }
 
     /**
      * @return Engine power of the car

@@ -1,8 +1,6 @@
 import java.awt.*;
 import java.security.InvalidParameterException;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
 
 public class Freightliner extends Cars implements Loadable {
@@ -29,6 +27,7 @@ public class Freightliner extends Cars implements Loadable {
     public void loadCar(Cars c){
         if (loaded.size() < maxCars && this.tiltDeg == 70 && c != this && !loaded.contains(c)){//add distance between car and carrier
             loaded.add(c);
+            c.setSamePos(this);
         }
     }
     public void unloadCar(){
@@ -45,6 +44,10 @@ public class Freightliner extends Cars implements Loadable {
         return loaded.size();
     }
 
+    public List<Cars> getLoaded() {
+        return loaded;
+    }
+
     @Override
     void startEngine() {
         this.tiltDeg = 0;
@@ -55,6 +58,14 @@ public class Freightliner extends Cars implements Loadable {
     void gas(double amount) throws InvalidParameterException {
         this.tiltDeg = 0;
         super.gas(amount);
+    }
+
+    @Override
+    public void move() {
+        super.move();
+        for (Cars c : loaded){
+            c.setSamePos(this);
+        }
     }
 
     public double speedFactor(){

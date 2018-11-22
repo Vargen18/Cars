@@ -34,12 +34,21 @@ class CarsTest {
         assertEquals(0.1, c1.getPosX());
         assertEquals(0, c1.getPosY());
 
+        c4.startEngine();
+        c4.loadCar(c2);
+        assertEquals(0.1, c4.getCurrentSpeed());
+        c4.move();
+        assertEquals(0.1, c2.getPosX());
+
+
         c5.startEngine();
-        assertEquals(0.1, c1.getCurrentSpeed());
+        c5.loadCar(c2);
+        assertEquals(0.1, c5.getCurrentSpeed());
         c5.move();
-        assertEquals(0, c1.getDeg());
-        assertEquals(0.1, c1.getPosX());
-        assertEquals(0, c1.getPosY());
+        assertEquals(0, c5.getDeg());
+        assertEquals(0.1, c5.getPosX());
+        assertEquals(0.1, c2.getPosX());
+        assertEquals(0, c5.getPosY());
 
     }
 
@@ -158,6 +167,10 @@ class CarsTest {
         c4.loadCar(c1); //cant load itself or the same car multiple times
         c4.loadCar(c1);
         assertEquals(c4.getAmountLoaded(),1); // test for what happens if list is full needed
+
+        c5.tiltDown();
+        c5.loadCar(c1);
+        assertEquals(c5.getAmountLoaded(), 1);
     }
 
     @Test
@@ -171,5 +184,14 @@ class CarsTest {
         assertEquals(c4.getAmountLoaded(),2);
         c4.unloadCar();
         assertEquals(c4.getAmountLoaded(),1);
+
+        c5.tiltDown();
+        c5.loadCar(c1);
+        c5.loadCar(c2);
+        assertEquals(c5.getAmountLoaded(), 2);
+
+        c5.unloadCar();
+        assertEquals(c5.getAmountLoaded(), 1);
+        assertEquals(c5.getLoaded().get(0), c2);
     }
 }

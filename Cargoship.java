@@ -1,13 +1,13 @@
-import java.awt.*;
+
 import java.security.InvalidParameterException;
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Cargoship implements Loadable,Movable { //not working right now
     Freightliner loader = new Freightliner();
     private final int maxCars;
     private final int enginePower;
-    private final Deque<Cars> tmp = new ArrayDeque<>(); //Solve issue with loading of in the other order from this class
+    private final List<Cars> loaded = new ArrayList<>(); //Solve issue with loading of in the other order from this class
 
     Cargoship(){
         this.maxCars = 10;
@@ -50,6 +50,16 @@ public class Cargoship implements Loadable,Movable { //not working right now
     void brake(double amount) throws InvalidParameterException {
         loader.brake(amount*(this.getEnginePower() / loader.getEnginePower()));
     }
+    public void loadCar(Cars c) {
+        if (loaded.size() < maxCars && loader.getTiltDeg() == 70 && !loaded.contains(c)) {//add distance between car and carrier
+            loaded.add(c);
+        }
+    }
+    public void unloadCar(){
+        if (loaded.size() > 0 && loader.getTiltDeg() == 70) { //set coordinates to carriers coordinates, private setters obstructing
+                loaded.remove(loaded.get(0));
+        }
+    }
     private int getEnginePower() {
         return enginePower;
     }
@@ -58,4 +68,23 @@ public class Cargoship implements Loadable,Movable { //not working right now
         return loader.getTiltDeg();
     }
 
+    public int getAmountLoaded() {
+        return loaded.size();
+    }
+
+    public List<Cars> getLoaded() {
+        return loaded;
+    }
+    double getPosY() {
+        return loader.getPosY();
+    }
+    double getPosX() {
+        return loader.getPosX();
+    }
+    double getCurrentSpeed() {
+        return loader.getCurrentSpeed();
+    }
+    int getDeg() {
+        return loader.getDeg();
+    }
 }
