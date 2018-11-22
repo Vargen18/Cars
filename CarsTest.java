@@ -27,23 +27,29 @@ class CarsTest {
 
     @org.junit.jupiter.api.Test
     void move() {
-        c1.setCurrentSpeed(5);
-        assertEquals(5, c1.getCurrentSpeed());
+        c1.startEngine();
+        assertEquals(0.1, c1.getCurrentSpeed());
         c1.move();
         assertEquals(0, c1.getDeg());
-        assertEquals(5, c1.getPosX());
+        assertEquals(0.1, c1.getPosX());
+        assertEquals(0, c1.getPosY());
+
+        c5.startEngine();
+        assertEquals(0.1, c1.getCurrentSpeed());
+        c5.move();
+        assertEquals(0, c1.getDeg());
+        assertEquals(0.1, c1.getPosX());
         assertEquals(0, c1.getPosY());
 
     }
 
     @org.junit.jupiter.api.Test
     void turnLeft() {
-        c1.setCurrentSpeed(1);
-        c1.setDeg(0);
+        c1.startEngine();
         c1.turnLeft();
         c1.move();
         assertEquals(1, c1.getDeg());
-        assertEquals(0.99, c1.getPosX(), 0.1);
+        assertEquals(0.099, c1.getPosX(), 0.1);
         assertEquals(0.017, c1.getPosY(), 0.1);
     }
 
@@ -51,7 +57,7 @@ class CarsTest {
     void turnRight() {
         c1.turnRight();
         assertEquals(-1, c1.getDeg());
-        c1.setCurrentSpeed(1);
+        c1.startEngine();
         c1.move();
         assertEquals(-0.017, c1.getPosY(), 0.1);
     }
@@ -115,6 +121,12 @@ class CarsTest {
         assertEquals(c4.getTiltDeg(),0);
         c4.tiltUp();
         assertEquals(c4.getTiltDeg(),0);
+
+        c5.tiltDown();
+        assertEquals(c5.getTiltDeg(),70);
+        c5.tiltUp();
+        assertEquals(c5.getTiltDeg(),0);
+
     }
 
     @Test
@@ -130,6 +142,9 @@ class CarsTest {
         assertEquals( c4.getTiltDeg(), 70);
         c4.tiltDown();
         assertEquals(c4.getTiltDeg(), 70);
+
+        c5.tiltDown();
+        assertEquals(c5.getTiltDeg(),70);
 
     }
 

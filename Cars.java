@@ -164,7 +164,7 @@ public abstract class Cars implements Movable {
      *
      * @param currentSpeed New current speed
      */
-    void setCurrentSpeed(double currentSpeed) { this.currentSpeed = currentSpeed; }
+    private void setCurrentSpeed(double currentSpeed) { this.currentSpeed = currentSpeed; }
 
     /**
      * @return posX
@@ -210,7 +210,7 @@ public abstract class Cars implements Movable {
      *
      * @param deg = new value for the angle
      */
-    void setDeg(int deg) {
+    private void setDeg(int deg) {
         this.deg = deg;
     }
 }

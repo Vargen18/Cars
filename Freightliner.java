@@ -1,12 +1,14 @@
 import java.awt.*;
 import java.security.InvalidParameterException;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
+import java.util.List;
 
 public class Freightliner extends Cars implements Loadable {
-    private int tiltDeg;
+    private double tiltDeg;
     private final int maxCars;
-    private final Deque<Cars> loaded = new ArrayDeque<>();
+    private final List<Cars> loaded = new ArrayList<>();
 
     public Freightliner() {
         super(2, 60, Color.blue, "Freightliner");
@@ -25,13 +27,13 @@ public class Freightliner extends Cars implements Loadable {
     }
 
     public void loadCar(Cars c){
-        if (loaded.size() < maxCars && this.tiltDeg == 70 && c != this && !loaded.contains(c)){ //add distance between car and carrier
-            loaded.push(c);
+        if (loaded.size() < maxCars && this.tiltDeg == 70 && c != this && !loaded.contains(c)){//add distance between car and carrier
+            loaded.add(c);
         }
     }
     public void unloadCar(){
         if (loaded.size() > 0 && this.tiltDeg == 70){ //set coordinates to carriers coordinates, private setters obstructing
-            loaded.pop();
+            loaded.remove(loaded.size() - 1);
         }
     }
 
@@ -49,7 +51,7 @@ public class Freightliner extends Cars implements Loadable {
         super.startEngine();
     }
 
-    @Override
+    @Override //Get these ones better some way code reuse
     void gas(double amount) throws InvalidParameterException {
         this.tiltDeg = 0;
         super.gas(amount);
