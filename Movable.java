@@ -1,10 +1,12 @@
+import java.awt.*;
+
 /**
- * An interface that contains methods that enable movement of our cars.
+ * An interface for all Movable objects
  */
 public interface Movable {
+
     void move();
-
     void turnLeft();
-
     void turnRight();
+
 }

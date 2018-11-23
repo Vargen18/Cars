@@ -1,7 +1,12 @@
 import java.awt.*;
 import java.security.InvalidParameterException;
 
-public class Scania extends Cars {
+/**
+ * A class for a lastbil.
+ * Implements the interface Loadable.
+ * Extends Cars.
+ */
+public class Scania extends Cars{
     private double tiltDeg;
 
     public Scania() {
@@ -9,6 +14,9 @@ public class Scania extends Cars {
         this.tiltDeg = 0;
     }
 
+    /**
+     * A method that tilts the ramp down.
+     */
     public void tiltDown(){
         if (getCurrentSpeed() == 0){
             this.tiltDeg = tiltDeg + 1;
@@ -18,6 +26,9 @@ public class Scania extends Cars {
         }
     }
 
+    /**
+     * A method that tilts the ramp up.
+     */
     public void tiltUp() {
         if (getCurrentSpeed() == 0){
             this.tiltDeg = tiltDeg - 1;
@@ -31,12 +42,20 @@ public class Scania extends Cars {
         return tiltDeg;
     }
 
+    /**
+     * A method that starts the engine and sets the ramp up.
+     */
     @Override
     void startEngine() {
         this.tiltDeg = 0;
         super.startEngine();
     }
 
+    /**
+     * A method that sets the ramp up and uses gas.
+     * @param amount Indicates how much the car gases from a scale from 0 to 1.
+     * @throws InvalidParameterException
+     */
     @Override
     void gas(double amount) throws InvalidParameterException {
         this.tiltDeg = 0;

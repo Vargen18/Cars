@@ -1,90 +1,105 @@
-
+import java.awt.*;
 import java.security.InvalidParameterException;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
-public class Cargoship implements Loadable,Movable { //not working right now
-    Freightliner loader = new Freightliner();
-    private final int maxCars;
-    private final int enginePower;
-    private final List<Cars> loaded = new ArrayList<>(); //Solve issue with loading of in the other order from this class
+/**
+ * A class that represents a Cargoship that carries cars.
+ * Could create an abstract boat class in the future if need be.
+ */
+public class Cargoship extends Vehicle implements Loadable {
+    private final int maxCars = 10;
+    private final Cargo c = new Cargo(this, maxCars);
+    private double tiltDeg;
+    /**
+     * constructor for the ship.
+     */
+    public Cargoship(){
+        super(30, Color.GRAY, "CargoShip");
+        this.tiltDeg = 0;
 
-    Cargoship(){
-        this.maxCars = 10;
-        this.enginePower = 30;
     }
 
+    /**
+     * A method that makes the cars loaded on our ship travel along with it.
+     */
     @Override
+    public void move(){
+        super.move();
+        for (Cars c : c.getLoaded()){
+            c.setSamePosition(this);
+        }
+    }
+
+    /**
+     * A method that tilts the ramp down
+     */
+
     public void tiltDown() {
-        loader.tiltDown();
+        this.tiltDeg = 70;
     }
+    /**
+     * A method that tilts the ramp up.
+     */
 
-    @Override
     public void tiltUp() {
-        loader.tiltUp();
+        this.tiltDeg = 0;
     }
 
-    @Override
-    public void move() {
-        loader.move();
-    }
 
     @Override
-    public void turnLeft() {
-        loader.turnLeft();
+    public double speedFactor() {
+        return 0;
     }
 
+    /**
+     * A gas that sets the ramp up.
+     * @param amount Indicates how much the car gases from a scale from 0 to 1.
+     * @throws InvalidParameterException
+     */
     @Override
-    public void turnRight() {
-        loader.turnRight();
-    }
-    void startEngine() {
-        loader.startEngine();
-    }
-    void stopEngine() {
-        loader.stopEngine();
-    }
     void gas(double amount) throws InvalidParameterException {
-        loader.gas(amount*(this.getEnginePower() / loader.getEnginePower()));
+        this.tiltDeg = 0;
+        super.gas(amount);
     }
-    void brake(double amount) throws InvalidParameterException {
-        loader.brake(amount*(this.getEnginePower() / loader.getEnginePower()));
+
+    /**
+     * A start engine that sets the ramp up.
+     */
+    @Override
+    void startEngine() {
+        this.tiltDeg = 0;
+        super.startEngine();
     }
-    public void loadCar(Cars c) {
-        if (loaded.size() < maxCars && loader.getTiltDeg() == 70 && !loaded.contains(c)) {//add distance between car and carrier
-            loaded.add(c);
-        }
-    }
-    public void unloadCar(){
-        if (loaded.size() > 0 && loader.getTiltDeg() == 70) { //set coordinates to carriers coordinates, private setters obstructing
-                loaded.remove(loaded.get(0));
-        }
-    }
-    private int getEnginePower() {
-        return enginePower;
+
+    /**
+     * returns a list with the cars the ship carries.
+     * @return
+     */
+    public int getLoaded() {
+        return c.getLoadedAmount();
     }
 
     public double getTiltDeg() {
-        return loader.getTiltDeg();
+        return tiltDeg;
     }
 
-    public int getAmountLoaded() {
-        return loaded.size();
+
+    /**
+     * A method that loads the cars according to the "First in, first out"-principle.
+     * @param car
+     */
+    public void loadCar(Cars car){
+        c.loadCar(car);
     }
 
-    public List<Cars> getLoaded() {
-        return loaded;
+    /**
+     * A method that unloads the car according to the "First in, first out"-principle.
+     */
+    public void unloadCar(){
+        c.unloadCar();
     }
-    double getPosY() {
-        return loader.getPosY();
-    }
-    double getPosX() {
-        return loader.getPosX();
-    }
-    double getCurrentSpeed() {
-        return loader.getCurrentSpeed();
-    }
-    int getDeg() {
-        return loader.getDeg();
-    }
+
 }
