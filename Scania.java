@@ -6,7 +6,7 @@ import java.security.InvalidParameterException;
  * Implements the interface Loadable.
  * Extends Cars.
  */
-public class Scania extends Cars{
+public class Scania extends Cars implements Loadable{
     private double tiltDeg;
 
     public Scania() {
@@ -38,6 +38,8 @@ public class Scania extends Cars{
         }
     }
 
+
+
     public double getTiltDeg() {
         return tiltDeg;
     }
@@ -66,4 +68,13 @@ public class Scania extends Cars{
     public double speedFactor() {
         return getEnginePower();
     }
+
+    @Override
+    public void unloadCar() {
+    }
+
+    @Override
+    public void loadCar(Cars c) {
+    }
+
 }

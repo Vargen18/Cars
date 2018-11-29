@@ -116,6 +116,20 @@ public class CarView extends JFrame{
                 carC.brake(brakeAmount);
             }
         });
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.startEngine();
+            }
+        });
+        stopButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.stopEngine();
+            }
+        });
+
+
 
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();

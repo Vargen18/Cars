@@ -22,7 +22,7 @@ public class CarController {
     CarView frame;
 
     // A list of cars, modify if needed
-    ArrayList<Cars> cars = new ArrayList<>();
+    static ArrayList<Cars> cars = new ArrayList<>();
 
     //methods:
 
@@ -30,7 +30,10 @@ public class CarController {
         // Instance of this class
         CarController cc = new CarController();
 
+
         cc.cars.add(new Volvo240());
+        cc.cars.add(new Saab95());
+        cc.cars.add(new Scania());
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
@@ -44,13 +47,15 @@ public class CarController {
      * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            int position = 0;
             for (Cars car : cars) {
                 car.move();
                 int x = (int) Math.round(car.getPosX());
                 int y = (int) Math.round(car.getPosY());
-                frame.drawPanel.moveit(x, y);
+                frame.drawPanel.moveit(x, y, position);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
+                position++;
             }
         }
     }
@@ -69,5 +74,19 @@ public class CarController {
         ) {
             car.brake(brake);
         }
+    }
+    void startEngine(){
+        for (Cars car : cars){
+            car.startEngine();
+        }
+    }
+    void stopEngine(){
+        for (Cars car : cars){
+            car.stopEngine();
+        }
+    }
+
+    public static ArrayList<Cars> getCars() {
+        return cars;
     }
 }
