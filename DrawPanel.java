@@ -11,26 +11,43 @@ import javax.swing.*;
 
 public class DrawPanel extends JPanel{
 
-    ArrayList<BufferedImage> images = new ArrayList<>();
+
     List<Point> carPoints = new ArrayList<>();
     List<Cars> cars = CarController.getCars();
+    List<BufferedImage> images = new ArrayList<>();
 
     // Just a single image, TODO: Generalize
-    BufferedImage volvoImage; //temporary, maybe make a list with images/cars, link them to classes
+    BufferedImage volvoImage;
     BufferedImage saabImage;
     BufferedImage scaniaImage;
     // To keep track of a single cars position
-    Point volvoPoint = new Point();
-    Point carPoint = new Point();
 
-    void addPoints(List<Cars> cars){
+    void refreshPoints(){
         for (Cars c :cars){ //if outside range, turn around and set engine to starting speed
-            if ((c.getPosX() > 670 && (c.getDeg() %360 == 0)) ||(c.getPosX() < 0 && (c.getDeg()%360 == 180))){
+            getCarImage(c);
+            if (cars.size() != carPoints.size()){
+                carPoints.add(new Point((int)c.getPosX(),(int)c.getPosY()));
+
+            }
+        }
+    }
+    void checkValidPosition(){
+        for (Cars c :cars) { //if outside range, turn around and set engine to starting speed
+            if ((c.getPosX() > 680 && (c.getDeg() % 360 == 0)) || (c.getPosX() < 0 && (c.getDeg() % 360 == 180))) {
                 c.turnLeft();
                 c.turnLeft();
                 c.startEngine();
             }
-            carPoints.add(new Point((int)c.getPosX(),(int)c.getPosY()));
+        }
+    }
+    void getCarImage(Cars c){
+        switch (c.getModelName()){
+            case "Volvo240":
+                images.add(volvoImage);
+            case "Saab95":
+                images.add(saabImage);
+            case "Scania":
+                images.add(scaniaImage);
         }
     }
 
@@ -66,12 +83,17 @@ public class DrawPanel extends JPanel{
     // TODO: Change to suit your needs.
     @Override
     protected void paintComponent(Graphics g) {
-        addPoints(CarController.getCars());
+        refreshPoints();
+        checkValidPosition();
         super.paintComponent(g);
          // see javadoc for more info on the parameters
-        g.drawImage(volvoImage, carPoints.get(0).x, carPoints.get(0).y, null);
-        g.drawImage(saabImage, carPoints.get(1).x  , carPoints.get(1).y + 100, null);
-        g.drawImage(scaniaImage, carPoints.get(2).x  , carPoints.get(2).y + 200, null);
+        for (int i = 0; i < cars.size(); i++){
+            int carSpacing = 100 * i;
+            g.drawImage(images.get(i),carPoints.get(i).x,carPoints.get(i).y + carSpacing, null);
+        }
+        /*g.drawImage(images.get(0), carPoints.get(0).x, carPoints.get(0).y, null);
+        g.drawImage(images.get(1), carPoints.get(1).x  , carPoints.get(1).y + 100, null);
+        g.drawImage(images.get(2), carPoints.get(2).x  , carPoints.get(2).y + 200, null);*/
 
 
     }

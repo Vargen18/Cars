@@ -238,5 +238,8 @@ public abstract class Vehicle implements Movable{
         vehicle.setPosY(this.posY + 20);
         vehicle.setPosX(this.posX + 20);
     }
+    public String getModelName() {
+        return modelName;
+    }
 
 }
