@@ -85,6 +85,34 @@ public class CarController {
             car.stopEngine();
         }
     }
+    void tiltDown(){
+        for (Cars car : cars){
+            if (car instanceof Scania){
+                ((Scania) car).tiltDown();
+            }
+        }
+    }
+    void tiltUp(){
+        for (Cars car : cars){
+            if (car instanceof Scania){
+                ((Scania) car).tiltDown();
+            }
+        }
+    }
+    void setTurboOn(){
+        for (Cars car : cars){
+            if (car instanceof Saab95){
+                ((Saab95) car).setTurboOn();
+            }
+        }
+    }
+    void setTurboOff(){
+        for (Cars car : cars){
+            if (car instanceof Saab95){
+                ((Saab95) car).setTurboOff();
+            }
+        }
+    }
 
     public static ArrayList<Cars> getCars() {
         return cars;

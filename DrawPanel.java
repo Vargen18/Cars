@@ -13,6 +13,7 @@ public class DrawPanel extends JPanel{
 
     ArrayList<BufferedImage> images = new ArrayList<>();
     List<Point> carPoints = new ArrayList<>();
+    List<Cars> cars = CarController.getCars();
 
     // Just a single image, TODO: Generalize
     BufferedImage volvoImage; //temporary, maybe make a list with images/cars, link them to classes
@@ -23,7 +24,7 @@ public class DrawPanel extends JPanel{
     Point carPoint = new Point();
 
     void addPoints(List<Cars> cars){
-        for (Cars c :CarController.getCars()){ //if outside range, turn around and set engine to starting speed
+        for (Cars c :cars){ //if outside range, turn around and set engine to starting speed
             if ((c.getPosX() > 670 && (c.getDeg() %360 == 0)) ||(c.getPosX() < 0 && (c.getDeg()%360 == 180))){
                 c.turnLeft();
                 c.turnLeft();
