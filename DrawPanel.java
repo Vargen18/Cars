@@ -12,9 +12,9 @@ import javax.swing.*;
 public class DrawPanel extends JPanel{
 
 
-    List<Point> carPoints = new ArrayList<>();
-    List<Cars> cars = CarController.getCars();
-    List<BufferedImage> images = new ArrayList<>();
+    private final List<PicPoint> positions = new ArrayList<>();
+    private final List<Cars> cars = CarController.getCars();
+
 
     // Just a single image, TODO: Generalize
     BufferedImage volvoImage;
@@ -25,35 +25,46 @@ public class DrawPanel extends JPanel{
     void refreshPoints(){
         for (Cars c :cars){ //if outside range, turn around and set engine to starting speed
             getCarImage(c);
-            if (cars.size() != carPoints.size()){
-                carPoints.add(new Point((int)c.getPosX(),(int)c.getPosY()));
+            if (cars.size() != positions.size()){
+                positions.add(new PicPoint(new Point(0,0),getCarImage(c)));
 
             }
         }
     }
     void checkValidPosition(){
         for (Cars c :cars) { //if outside range, turn around and set engine to starting speed
-            if ((c.getPosX() > 680 && (c.getDeg() % 360 == 0)) || (c.getPosX() < 0 && (c.getDeg() % 360 == 180))) {
+            if (hitsWall(c)) {
                 c.turnLeft();
                 c.turnLeft();
                 c.startEngine();
             }
         }
     }
-    void getCarImage(Cars c){
-        switch (c.getModelName()){
-            case "Volvo240":
-                images.add(volvoImage);
-            case "Saab95":
-                images.add(saabImage);
-            case "Scania":
-                images.add(scaniaImage);
+    boolean hitsWall(Cars c){
+        if ((c.getPosX() > 680 && (c.getDeg() % 360 == 0)) || (c.getPosX() < 0 && (c.getDeg() % 360 == 180))){
+            return true;
+        }
+        else{
+            return false;
         }
     }
 
+    BufferedImage getCarImage(Cars c){
+        switch (c.getModelName()){
+            case "Volvo240":
+                return volvoImage;
+            case "Saab95":
+                return saabImage;
+            case "Scania":
+                return scaniaImage;
+        }
+        //never returning this
+        return null;
+    }
+
     // TODO: Make this general for all cars
-    void moveit(int x, int y, int position){
-        carPoints.set(position, new Point(x,y));
+    void moveit(int x, int y, int count){
+        positions.get(count).setCarPoint(x,y);
     }
 
     // Initializes the panel and reads the images
@@ -89,7 +100,9 @@ public class DrawPanel extends JPanel{
          // see javadoc for more info on the parameters
         for (int i = 0; i < cars.size(); i++){
             int carSpacing = 100 * i;
-            g.drawImage(images.get(i),carPoints.get(i).x,carPoints.get(i).y + carSpacing, null);
+            Point currentPos = positions.get(i).getCarPoint();
+            BufferedImage currentImage = positions.get(i).getImage();
+            g.drawImage(currentImage,currentPos.x,currentPos.y + carSpacing, null);
         }
         /*g.drawImage(images.get(0), carPoints.get(0).x, carPoints.get(0).y, null);
         g.drawImage(images.get(1), carPoints.get(1).x  , carPoints.get(1).y + 100, null);

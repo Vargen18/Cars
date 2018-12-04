@@ -22,7 +22,7 @@ public class CarController {
     CarView frame;
 
     // A list of cars, modify if needed
-    static ArrayList<Cars> cars = new ArrayList<>();
+    private final static ArrayList<Cars> cars = new ArrayList<>();
 
     //methods:
 
@@ -47,15 +47,15 @@ public class CarController {
      * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            int position = 0;
+            int count = 0;
             for (Cars car : cars) {
                 car.move();
                 int x = (int) Math.round(car.getPosX());
                 int y = (int) Math.round(car.getPosY());
-                frame.drawPanel.moveit(x, y, position);
+                frame.drawPanel.moveit(x, y, count);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
-                position++;
+                count++;
             }
         }
     }
@@ -63,10 +63,10 @@ public class CarController {
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
-        for (Cars car : cars
-        ) {
-            car.gas(gas);
+        for (Cars car : cars) {
+                car.gas(gas);
         }
+
     }
     void brake(int amount) {
         double brake = ((double) amount) / 100;
