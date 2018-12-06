@@ -1,7 +1,9 @@
+package Model;
+
 import java.awt.*;
 
 /**
- * Specific car model, Saab95. Subclass to Cars. Imports java.awt.
+ * Specific car model, Model.Saab95. Subclass to Model.Cars. Imports java.awt.
  */
 
 public class Saab95 extends Cars {
@@ -11,10 +13,10 @@ public class Saab95 extends Cars {
     private boolean turboOn;
 
     /**
-     * Constructor for the Saab95
+     * Constructor for the Model.Saab95
      */
     public Saab95() {
-        super(2, 125, Color.red, "Saab95");
+        super(2, 125, Color.red, "Model.Saab95");
         this.turboOn = false;
         this.stopEngine();
     }

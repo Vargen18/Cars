@@ -1,11 +1,12 @@
+package Model;
+
 import java.awt.*;
-import java.security.InvalidParameterException;
 
 /**
  * An abstract superclass for all different kinds of cars.
  * Shared methods and functions for all cars are included.
- * Extends the abstract class Vehicle.
- * Implements the interface Movable and imports java.awt and java.lang.Math.
+ * Extends the abstract class Model.Vehicle.
+ * Implements the interface Model.Movable and imports java.awt and java.lang.Math.
  */
 public abstract class Cars extends Vehicle implements Movable {
     /**

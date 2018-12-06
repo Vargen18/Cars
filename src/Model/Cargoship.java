@@ -1,12 +1,10 @@
+package Model;
+
 import java.awt.*;
 import java.security.InvalidParameterException;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
 
 /**
- * A class that represents a Cargoship that carries cars.
+ * A class that represents a Model.Cargoship that carries cars.
  * Could create an abstract boat class in the future if need be.
  */
 public class Cargoship extends Vehicle implements Loadable {

@@ -1,9 +1,7 @@
+package Model;
+
 import java.awt.*;
 import java.security.InvalidParameterException;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
 
 /**
  * A freightliner class for a lastbil that can load cars.
@@ -18,7 +16,7 @@ public class Freightliner extends Cars implements Loadable {
      * A constructor for the FreightLiner.
      */
     public Freightliner() {
-        super(2, 60, Color.blue, "Freightliner");
+        super(2, 60, Color.blue, "Model.Freightliner");
         this.tiltDeg = 0;
     }
     /**

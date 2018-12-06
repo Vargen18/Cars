@@ -1,9 +1,11 @@
+package Model;
+
 import java.awt.*;
 import java.security.InvalidParameterException;
 
 /**
  * A class for all types of vehicles.
- * Implements the interface Movable.
+ * Implements the interface Model.Movable.
  *
  */
 public abstract class Vehicle implements Movable{
@@ -55,7 +57,7 @@ public abstract class Vehicle implements Movable{
 
 
     /**
-     * A method that increments the speed of our Cars by the following formula.
+     * A method that increments the speed of our Model.Cars by the following formula.
      * currentSpeed = getCurrentSpeed() + speedFactor * amount
      *
      * @param amount This value is determined by the gas() method. Valid range [0,1]
@@ -70,7 +72,7 @@ public abstract class Vehicle implements Movable{
     }
 
     /**
-     * A method that decrements the speed of our Cars by the following formula.
+     * A method that decrements the speed of our Model.Cars by the following formula.
      * currentSpeed = getCurrentSpeed() - speedFactor * amount
      *
      * @param amount This value is determined by the break() method. Valid range [0,1]

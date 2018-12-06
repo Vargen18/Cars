@@ -1,3 +1,5 @@
+package Model;
+
 /**
  * An interface for all objects that have something to load.
  */

@@ -1,3 +1,7 @@
+package View;
+
+import Controller.CarController;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -51,11 +55,11 @@ public class DrawPanel extends JPanel{
 
     BufferedImage getCarImage(Cars c){
         switch (c.getModelName()){
-            case "Volvo240":
+            case "Model.Volvo240":
                 return volvoImage;
-            case "Saab95":
+            case "Model.Saab95":
                 return saabImage;
-            case "Scania":
+            case "Model.Scania":
                 return scaniaImage;
         }
         //never returning this
@@ -79,9 +83,9 @@ public class DrawPanel extends JPanel{
             // Rememember to rightclick src New -> Package -> name: pics -> MOVE *.jpg to pics.
             // if you are starting in IntelliJ.
             // Linux users need to modify \ to / in path string
-            volvoImage = ImageIO.read(new File("src\\pics\\Volvo240.jpg"));
-            saabImage = ImageIO.read(new File("src\\pics\\Saab95.jpg"));
-            scaniaImage = ImageIO.read(new File("src\\pics\\Scania.jpg"));
+            volvoImage = ImageIO.read(new File("src\\pics\\Model.Volvo240.jpg"));
+            saabImage = ImageIO.read(new File("src\\pics\\Model.Saab95.jpg"));
+            scaniaImage = ImageIO.read(new File("src\\pics\\Model.Scania.jpg"));
 
         } catch (IOException ex)
         {
