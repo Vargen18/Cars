@@ -1,6 +1,8 @@
 package View;
 
 import Controller.CarController;
+import Model.CarModel;
+import Model.Cars;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,7 +19,7 @@ public class DrawPanel extends JPanel{
 
 
     private final List<PicPoint> positions = new ArrayList<>();
-    private final List<Cars> cars = CarController.getCars();
+    private final List<Cars> cars = CarModel.getCars();
 
 
     // Just a single image, TODO: Generalize
@@ -26,6 +28,7 @@ public class DrawPanel extends JPanel{
     BufferedImage scaniaImage;
     // To keep track of a single cars position
 
+    //TODO I would argue that some of these methods do not make sense, they should be in CarModel and simply be called from here. At the same time it doesn't make sense for them to be in CarModel either
     void refreshPoints(){
         for (Cars c :cars){ //if outside range, turn around and set engine to starting speed
             getCarImage(c);
