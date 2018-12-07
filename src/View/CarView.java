@@ -173,10 +173,6 @@ public class CarView extends JFrame implements ModelObserver {
     }
 
 
-    public void notifyObservers(ActionEvent e) {
-        for (ModelObserver modelObserver : observers)
-    }
-
     public void moveit(int x, int y, int count) {
         drawPanel.moveit(x, y, count);
     }
@@ -186,4 +182,8 @@ public class CarView extends JFrame implements ModelObserver {
         drawPanel.repaint();
     }
 
+    @Override
+    public void actOnModelChange() {
+        drawPanel.repaint();
+    }
 }
