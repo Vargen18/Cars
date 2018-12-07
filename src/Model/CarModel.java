@@ -1,15 +1,15 @@
 package Model;
 
-import Observer.Observer;
+import Observer.ModelObserver;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class CarModel {
+public class CarModel{
 
     private final static ArrayList<Cars> cars = new ArrayList<>();
-    List<Observer> observers = new ArrayList<Observer>();
+    List<ModelObserver> modelObservers = new ArrayList<ModelObserver>();
 
     public void gas(int amount) {
         double gas = ((double) amount) / 100;

@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
  * TODO: Write more actionListeners and wire the rest of the buttons
  **/
 
-public class CarView extends JFrame implements Observer{
+public class CarView extends JFrame implements ModelObserver {
     private static final int X = 800;
     private static final int Y = 800;
 
@@ -173,8 +173,8 @@ public class CarView extends JFrame implements Observer{
     }
 
 
-    public void notifyObservers() {
-
+    public void notifyObservers(ActionEvent e) {
+        for (ModelObserver modelObserver : observers)
     }
 
     public void moveit(int x, int y, int count) {
