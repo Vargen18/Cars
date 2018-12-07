@@ -49,5 +49,21 @@ public class CarController {
     void setTurboOff(){
         model.setTurboOff();
     }
+    public void addCar(Cars car) {
+        cars.add(car);
+    }
+
+    public void moveAllCarsRepaint() {
+        int count = 0;
+        for (Cars car : CarModel.getCars()) {
+            car.move();
+            int x = (int) Math.round(car.getPosX());
+            int y = (int) Math.round(car.getPosY());
+            frame.moveit(x, y, count);
+            // repaint() calls the paintComponent method of the panel
+            frame.repaint();
+            count++;
+        }
+    }
 
 }
