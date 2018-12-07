@@ -1,6 +1,8 @@
 package View;
 
 import Controller.CarController;
+import Model.CarModel;
+import Model.Cars;
 import Observer.*;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -8,6 +10,9 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represents the full view of the MVC pattern of your car simulator.
@@ -43,6 +48,15 @@ public class CarView extends JFrame implements ModelObserver {
 
     JButton startButton = new JButton("Start all cars");
     JButton stopButton = new JButton("Stop all cars");
+
+    // Just a single image, TODO: Generalize
+    static BufferedImage volvoImage; //TODO Questionable solution (static everywhere)
+    static BufferedImage saabImage;
+    static BufferedImage scaniaImage;
+    // To keep track of a single cars position
+
+    private static final java.util.List<PicPoint> positions = new ArrayList<>();
+    private static final List<Cars> cars = CarModel.getCars();
 
     // Constructor
     public CarView(String framename, CarController cc){
@@ -92,6 +106,8 @@ public class CarView extends JFrame implements ModelObserver {
         controlPanel.setPreferredSize(new Dimension((X/2)+4, 200));
         this.add(controlPanel);
         controlPanel.setBackground(Color.CYAN);
+
+
 
 
         startButton.setBackground(Color.blue);
@@ -173,17 +189,72 @@ public class CarView extends JFrame implements ModelObserver {
     }
 
 
-    public void moveit(int x, int y, int count) {
+  /*  //public void moveit(int x, int y, int count) {
         drawPanel.moveit(x, y, count);
-    }
+    }*/
 
     @Override
     public void repaint(){
+        refreshPoints();
+        checkValidPosition();
         drawPanel.repaint();
     }
 
     @Override
     public void actOnModelChange() {
-        drawPanel.repaint();
+        drawPanel.repaint(); }
+
+
+    void refreshPoints(){
+        for (Cars c :cars){ //if outside range, turn around and set engine to starting speed
+            getCarImage(c);
+            if (cars.size() != positions.size()){
+                positions.add(new PicPoint(new Point(0,0),getCarImage(c)));
+
+            }
+        }
     }
+    void checkValidPosition(){
+        for (Cars c :cars) { //if outside range, turn around and set engine to starting speed
+            if (hitsWall(c)) {
+                c.turnLeft();
+                c.turnLeft();
+                c.startEngine();
+            }
+        }
+    }
+    boolean hitsWall(Cars c){
+        if ((c.getPosX() > 680 && (c.getDeg() % 360 == 0)) || (c.getPosX() < 0 && (c.getDeg() % 360 == 180))){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    BufferedImage getCarImage(Cars c){
+        switch (c.getModelName()){
+            case "Model.Volvo240":
+                return volvoImage;
+            case "Model.Saab95":
+                return saabImage;
+            case "Model.Scania":
+                return scaniaImage;
+        }
+        //never returning this
+        return null;
+    }
+
+    // TODO: Make this general for all cars
+    void moveit(int x, int y, int count){
+        positions.get(count).setCarPoint(x,y);
+    }
+    static List<Cars> getCars(){
+        return cars;
+    }
+
+    static List<PicPoint> getPicPoints(){
+        return positions;
+    }
+
 }
