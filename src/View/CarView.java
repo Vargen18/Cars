@@ -177,4 +177,13 @@ public class CarView extends JFrame implements Observer{
 
     }
 
+    public void moveit(int x, int y, int count) {
+        drawPanel.moveit(x, y, count);
+    }
+
+    @Override
+    public void repaint(){
+        drawPanel.repaint();
+    }
+
 }
