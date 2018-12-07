@@ -169,14 +169,14 @@ public abstract class Vehicle implements Movable{
     /**
      * @return posX
      */
-    double getPosX() {
+    public double getPosX() {
         return posX;
     }
 
     /**
      * @return posY
      */
-    double getPosY() {
+    public double getPosY() {
         return posY;
     }
 
