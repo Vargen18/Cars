@@ -67,7 +67,7 @@ public class Cargoship extends Vehicle implements Loadable {
      * A start engine that sets the ramp up.
      */
     @Override
-    void startEngine() {
+    public void startEngine() {
         this.tiltDeg = 0;
         super.startEngine();
     }

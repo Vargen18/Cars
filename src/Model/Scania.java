@@ -48,7 +48,7 @@ public class Scania extends Cars implements Loadable{
      * A method that starts the engine and sets the ramp up.
      */
     @Override
-    void startEngine() {
+    public void startEngine() {
         this.tiltDeg = 0;
         super.startEngine();
     }

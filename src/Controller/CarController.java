@@ -28,28 +28,28 @@ public class CarController {
     private final static ArrayList<Cars> cars = new ArrayList<>();
 
     //methods:
-    void gas(int amount) {
+    public void gas(int amount) {
         model.gas(amount);
     }
-    void brake(int amount) {
+    public void brake(int amount) {
         model.brake(amount);
     }
-    void startEngine(){
+    public void startEngine(){
         model.startEngine();
     }
-    void stopEngine(){
+    public void stopEngine(){
         model.stopEngine();
     }
-    void tiltDown(){
+    public void tiltDown(){
         model.tiltDown();
     }
-    void tiltUp(){
+    public void tiltUp(){
         model.tiltUp();
     }
-    void setTurboOn(){
+    public void setTurboOn(){
         model.setTurboOn();
     }
-    void setTurboOff(){
+    public void setTurboOff(){
         model.setTurboOff();
     }
     public void addCar(Cars car) {

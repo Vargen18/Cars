@@ -37,7 +37,7 @@ public abstract class Vehicle implements Movable{
     /**
      * Starts the engine of the car. Effectively sets currentSpeed to 0.1
      */
-    void startEngine() {
+    public void startEngine() {
         currentSpeed = 0.1;
     }
 
@@ -201,7 +201,7 @@ public abstract class Vehicle implements Movable{
     /**
      * @return int deg
      */
-    int getDeg() {
+    public int getDeg() {
         return deg;
     }
 

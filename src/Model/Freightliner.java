@@ -53,7 +53,7 @@ public class Freightliner extends Cars implements Loadable {
      * A start engine that only works when the ramp is up.
      */
     @Override
-    void startEngine() {
+    public void startEngine() {
         this.tiltDeg = 0;
         super.startEngine();
     }
