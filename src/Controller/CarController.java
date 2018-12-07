@@ -4,6 +4,7 @@ import Model.*;
 import View.CarView;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -18,7 +19,9 @@ public class CarController {
     // member fields:
 
     // The frame that represents this instance View of the MVC pattern
-    CarView frame;
+    // Start a new view and send a reference of self
+    CarView frame = new CarView("CarSim 1.0", this);
+
     CarModel model;
 
     // A list of cars, modify if needed
